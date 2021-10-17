@@ -240,7 +240,7 @@ export default function SignUp () {
               <input className='signupInput social' 
                 type='text' 
                 name='linkedin'
-                value={linkedin}
+                // value={linkedin}
                 {... register('linkedin')}>
                 </input>
                 <p className='error'>{errors.linkedin?.message}</p>

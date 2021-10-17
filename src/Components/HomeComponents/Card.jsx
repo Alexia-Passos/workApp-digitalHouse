@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import helper from '../../helper/helper'
 import '../../styleCss/card.css'
 import { FiThumbsUp } from 'react-icons/fi'
 import { Link } from 'react-router-dom'

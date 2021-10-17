@@ -8,9 +8,9 @@ import Perfil from './Components/Perfil/Perfil'
 import Privacy from './Components/HomeComponents/Privacy';
 import Security from './Components/HomeComponents/Security';
 import JobDetails from './Components/Details/JobDetails';
-import DataFetching from './helper/DataFetching';
-import {Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-dom'
 import history from './History';
+
 console.log(history.location.pathname)
 
 function App() {
@@ -71,9 +71,6 @@ function App() {
           </Route>
           <Route exact path='/detalhes'>
             <JobDetails/>
-          </Route>
-          <Route exact path='/deubom'>
-            <DataFetching/>
           </Route>
         </Switch>
       </main>
