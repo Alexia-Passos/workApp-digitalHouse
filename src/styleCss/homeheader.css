@@ -1,0 +1,52 @@
+.ContentLogged{
+  height: 60px;
+  background-color: #2d2d2d;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.headerIcons{
+  margin: 10px;
+  color: white;
+  width: auto;
+}
+.loginPic{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  position: relative;
+}
+#perfil{
+  width: 5%;
+}
+
+.homeHeaderContent{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #2d2d2d;
+}
+.loginBar{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+}
+.loginBtn{
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+  margin-right: 20px;
+  margin-left: 20px;
+  border-radius: 30px;
+  background-color: #2d2d2d;
+  color: #7441CE;
+  border-style: solid #7441CE ;
+}
+.loginDescription{
+  font-size: 16px;
+  color: white;
+}
