@@ -1,4 +1,6 @@
+//react
 import React from 'react'
+//comp
 import '../../styleCss/home.css'
 import HomeHeader from './HomeHeader'
 import Footer from './Footer'

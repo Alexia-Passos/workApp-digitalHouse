@@ -4,7 +4,7 @@ import Category from './Components/CategorysComponents/Category'
 import NotFound from './Components/HomeComponents/NotFound';
 import Login from './Components/LoginComponents/Login';
 import SignUp from './Components/LoginComponents/SignUp';
-import Perfil from './Components/Perfil/Perfil'
+import EditPerfil from './Components/Perfil/EditPerfil'
 import Privacy from './Components/HomeComponents/Privacy';
 import Security from './Components/HomeComponents/Security';
 import JobDetails from './Components/Details/JobDetails';
@@ -21,34 +21,34 @@ function App() {
           <Route exact path='/'>
             <Home/>
           </Route>
-          <Route exact path='/assistencia'>
+          <Route exact path='/assistencia/:id'>
             <Category categoryType='assistencia'/>
           </Route>
-          <Route exact path='/administrativos'>
+          <Route exact path='/administrativos/:id'>
             <Category categoryType='administrativos'/>
           </Route>
-          <Route exact path='/artesanais'>
+          <Route exact path='/artesanais/:id'>
             <Category categoryType='artesanais'/>
           </Route>
-          <Route exact path='/consultoria'>
+          <Route exact path='/consultoria/:id'>
             <Category categoryType='consultoria'/>
           </Route>
-          <Route exact path='/domesticos'>
+          <Route exact path='/domesticos/:id'>
             <Category categoryType='domesticos'/>
           </Route>
-          <Route exact path='/educacao'>
+          <Route exact path='/educacao/:id'>
             <Category categoryType='educacao'/>
           </Route>
-          <Route exact path='/estetica'>
+          <Route exact path='/estetica/:id'>
             <Category categoryType='estetica'/>
           </Route>
-          <Route exact path='/manutencao'>
+          <Route exact path='/manutencao/:id'>
             <Category categoryType='manutencao'/>
           </Route>
-          <Route exact path='/saude'>
+          <Route exact path='/saude/:id'>
             <Category categoryType='saude'/>
           </Route>
-          <Route exact path='/tecnologia'>
+          <Route exact path='/tecnologia/:id'>
             <Category categoryType='tecnologia'/>
           </Route>
           <Route exact path='/notfound'>
@@ -60,8 +60,8 @@ function App() {
           <Route exact path='/cadastro'>
             <SignUp/>
           </Route>
-          <Route exact path='/perfil'>
-            <Perfil/>
+          <Route exact path='/perfil/:id'>
+            <EditPerfil/>
           </Route>
           <Route exact path='/seguranca'>
             <Security/>
@@ -69,7 +69,7 @@ function App() {
           <Route exact path='/privacidade'>
             <Privacy/>
           </Route>
-          <Route exact path='/detalhes'>
+          <Route exact path='/detalhes/:id'>
             <JobDetails/>
           </Route>
         </Switch>

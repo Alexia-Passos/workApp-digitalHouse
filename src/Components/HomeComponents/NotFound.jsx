@@ -1,6 +1,8 @@
+//react
 import React from 'react'
+//comp
 import '../../styleCss/notFound.css'
-// import { notfound } from '../../img/notfound.png'
+//img
 import error from '../../img/notfound.png'
 
 export default function NotFound() {

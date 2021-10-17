@@ -1,7 +1,10 @@
+//react
 import React from 'react'
+import { Link } from 'react-router-dom'
+//comp
 import '../../styleCss/login.css'
 import LoginMenu from '../LoginComponents/LoginMenu'
-import { Link } from 'react-router-dom'
+//img
 import whiteLogo from '../../img/whiteLogo.png'
 
 export default function Login() {

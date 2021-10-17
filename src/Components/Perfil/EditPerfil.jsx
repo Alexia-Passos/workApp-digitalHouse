@@ -4,11 +4,13 @@ import Select from 'react-select'
 import { useForm } from 'react-hook-form'
 import '../../styleCss/signup.css'
 import whiteLogo from '../../img/whiteLogo.png'
-import LoginMenu from './LoginMenu'
+import HomeHeader from '../HomeComponents/HomeHeader'
+import PerfilInfo from './PerfilInfo'
 import { FiFacebook, FiInstagram, FiLinkedin, FiStar} from 'react-icons/fi'
 import axios from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { useParams } from 'react-router'
 
 const validation = yup.object().shape({
   firstName: yup.string().required('Conteúdo obrigatório'),
@@ -29,18 +31,30 @@ const validation = yup.object().shape({
   instagram: yup.string().required('Conteúdo obrigatório'),
 })
 
-export default function SignUp () { 
-
-  const [signupStep , setSignupStep] = useState(true)
+export default function EditPerfil () { 
+  const id = useParams()
+  const [EditPerfilStep , setEditPerfilStep] = useState(true)
   const [sucessStep , setSucessStep] = useState(false)
+  const [perfilStep , setPerfilStep] = useState(false)
+  const [users , setUsers] = useState(false)
 
-  const {register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validation)})
-  const addPost = data => axios.post("https://workapp-be.herokuapp.com/works/registration", data)
+  const {register, handleSubmit, formState: {errors}, reset} = useForm({resolver: yupResolver(validation)})
+  const addPut = data => axios.put(`https://workapp-be.herokuapp.com/works/change/${id}`, data)
   .then(res => {
     console.log(res)
   }).catch(err => {
     console.log(err)
   })  
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/users/:id`)
+    .then(res => {
+      console.log(res)
+      reset(res.data)
+    }).catch(err => {
+      console.log(err)
+    })  
+  },[])
 
   const options = [
     { value: "workId", label: 'Assistência' },
@@ -55,12 +69,15 @@ export default function SignUp () {
     { value: "workId", label: 'Tecnologia' }
   ]
   return (
-    <div className='signUpContainer'>
-      <LoginMenu/>
-      {signupStep && 
+    <div className='signupContainer'>
+      <HomeHeader/>
+      {perfilStep &&
+        <PerfilInfo/>
+      }
+      {EditPerfilStep && 
         <>
           <img  alt='logo' className='logoImg' src={whiteLogo}></img>
-          <form onSubmit={handleSubmit(addPost)} className='signUp' action='/users' method='POST'>
+          <form onSubmit={handleSubmit(addPut)} className='signUp' action='/users' method='POST'>
             <h2>Dados Pessoais</h2>
             <label htmlFor='firstName'>Nome</label>
             <input className='signupInput' 
@@ -248,3 +265,5 @@ export default function SignUp () {
     </div> 
   )  
 }
+
+

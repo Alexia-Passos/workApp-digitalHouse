@@ -25,3 +25,7 @@ h1{
 .cardCategory{
   margin-bottom: 150px;
 }
+.carouselImg{
+  width: 430px;
+  height: 270px;
+}

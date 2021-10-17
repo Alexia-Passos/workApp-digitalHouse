@@ -1,6 +1,8 @@
+//react
 import React from 'react'
-import '../../styleCss/login.css'
 import { Link } from 'react-router-dom'
+//com
+import '../../styleCss/login.css'
 
 export default function LoginMenu() {
   return (

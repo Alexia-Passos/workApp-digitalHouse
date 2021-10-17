@@ -1,40 +1,62 @@
+//react
 import React from 'react'
-import Card from './Card'
+import { useState, useEffect } from 'react';
+//comp
 import '../../styleCss/home.css'
 import HomeHeader from './HomeHeader'
 import Footer from './Footer'
 import MenuBar from './MenuBar'
+//dep
+import axios from 'axios'
 import Carousel , { slidesToShowPlugin } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
+//img
+import enginner  from '../../img/eng.png'
+import coach from '../../img/edfis.png'
+import psycho from '../../img/psico.png'
+import tech  from '../../img/tech.png'
+
 
 export default function Home() {
-    return (
-      <>
-        <HomeHeader/>
-        <MenuBar/>
-        <div className='container'>
-          <h1>Encontre serviços de forma descomplicada!</h1>
-          <p className='homeInfo'>Nossos prestadores de serviço aguardam seu contato para consultar um orçamento.</p>
-          <Carousel
-            plugins={[
-              'infinite',
-              'arrows',
-              {
-                resolve: slidesToShowPlugin,
-                options: {
-                numberOfSlides: 2
-                }
-              },
-            ]}
-          >
-            <img src={"https://brainhubeu.github.io/react-carousel/static/starry-night-39eed0a107ddb6c9f980eb3081a8bdd3.jpg"} />
-            <img src={"https://brainhubeu.github.io/react-carousel/static/scream-ee207a05c1e6fed03aafa156cc511abe.jpg"} />
-            <img src={"https://brainhubeu.github.io/react-carousel/static/mona-7a1ceae9bdb8c43272eb101c091c5408.jpg"} />
-            <img src={"https://brainhubeu.github.io/react-carousel/static/starry-night-39eed0a107ddb6c9f980eb3081a8bdd3.jpg"} />
-          </Carousel>
-        </div>
-        <Footer/>
-      </>
-        
-    )
+  const [works, setWorks] = useState([])
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/works`)
+    .then(res => {
+      console.log(res)
+      setWorks(res.data)
+    }).catch(err => {
+      console.log(err)
+    })  
+  },[])
+
+  return (
+    <>
+      <HomeHeader/>
+      <MenuBar/>
+      <div className='container'>
+        <h1>Encontre serviços de forma descomplicada!</h1>
+        <p className='homeInfo'>Nossos prestadores de serviço aguardam seu contato para consultar um orçamento.</p>
+        <Carousel
+          plugins={[
+            'infinite',
+            'arrows',
+            {
+              resolve: slidesToShowPlugin,
+              options: {
+              numberOfSlides: 2
+              }
+            },
+          ]}
+        >
+          <img className='carouselImg' src={enginner} />
+          <img className='carouselImg' src={coach} />
+          <img className='carouselImg' src={tech} />
+          <img className='carouselImg' src={psycho} />
+        </Carousel>
+      </div>
+      <Footer/>
+    </>
+      
+  )
 }

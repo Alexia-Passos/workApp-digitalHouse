@@ -1,7 +1,9 @@
+//react
+import { Link } from 'react-router-dom'
 import React from 'react'
+//comp
 import '../../styleCss/footer.css'
 import {FiFacebook , FiInstagram , FiTwitter , FiLinkedin} from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 
 export default function Footer() {
     return (

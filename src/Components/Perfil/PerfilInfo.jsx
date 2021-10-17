@@ -3,6 +3,7 @@ import axios from 'axios'
 import '../../styleCss/perfilInfo.css'
 import user from '../../img/user.jpeg'
 import {FiFacebook , FiInstagram , FiLinkedin} from 'react-icons/fi'
+import { useParams } from 'react-router'
 
 const dados = [
   {
@@ -22,9 +23,11 @@ const dados = [
 export default function PerfilInfo() {
   const [users, setUsers] = useState([])
   const [works, setworks] = useState([])
+  const [editUser, setEditUser] = useState([])
+  const id = useParams()
 
   useEffect(() => {
-    axios.get('http://localhost:3000/users')
+    axios.get(`http://localhost:3000/users/${id}`)
     .then(res => {
       console.log(res)
       setUsers(res.data)
@@ -34,7 +37,7 @@ export default function PerfilInfo() {
   },[])
   
   useEffect(() => {
-    axios.get('http://localhost:3000/works')
+    axios.get(`http://localhost:3000/works/${id}`)
     .then(res => {
       console.log(res)
       setworks(res.data)
@@ -43,27 +46,41 @@ export default function PerfilInfo() {
     })  
   },[])
 
+  function deleteUser(){
+    axios.delete(`http://localhost:3000/works/delete/${id}`)
+      .then(res => {
+        console.log(res)
+        setworks(res.data)
+      }).catch(err => {
+        console.log(err)
+      })  
+  }
+
+  function editUserTrigger(id){
+    setEditUser(true)
+  }
+
   return (
     <div className='perfilInfo'>  
       <h2>Dados Pessoais</h2>
       <img  className='perfiInfoProfile' alt='profile' src={ user }/>
-      <p className='perfilInfop'><b>Nome:</b> Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>CPF:</b>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>Email:</b>Lorem ipsum dolor sit amet.</p>
+      {/* <p className='perfilInfo'><b>Nome:</b>{user.firstName + '  ' + user.lastName}</p>
+      <p className='perfilInfo'><b>CPF:</b>{user.cpf}</p>
+      <p className='perfilInfo'><b>Email:</b>{user.email}</p>
       <h2>Dados de Endereço</h2>
-      <p className='perfilInfop'><b>CEP:</b>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>Cidade:</b>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>Estado:</b>Lorem ipsum dolor sit amet.</p>
+      <p className='perfilInfo'><b>CEP:</b>{user.address.cep}</p>
+      <p className='perfilInfo'><b>Cidade:</b>{user.address.city}</p>
+      <p className='perfilInfo'><b>Estado:</b>{user.address.uf}</p>
       <h2>Dados de Endereço</h2>
-      <p className='perfilInfop'><b>Categoria:</b>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>Profissão:</b>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>Descrição:</b>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>Status:</b>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>Whatsapp profissional:</b>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><b>Curtidas:</b>5555  Pessoas curtiram seu trabalho</p>
-      <p className='perfilInfop'><FiFacebook/>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><FiInstagram/>Lorem ipsum dolor sit amet.</p>
-      <p className='perfilInfop'><FiLinkedin/> Lorem ipsum dolor sit amet.</p>
+      <p className='perfilInfo'><b>Categoria:</b>{work.category.categoryName}</p>
+      <p className='perfilInfo'><b>Profissão:</b>{work.workName}</p>
+      <p className='perfilInfo'><b>Descrição:</b>{work.description}</p>
+      <p className='perfilInfo'><b>Status:</b>{work.status}</p>
+      <p className='perfilInfo'><b>Whatsapp profissional:</b>{work.whatsapp}</p>
+      <p className='perfilInfo'><b>Curtidas:</b>{work.like.likeAccount}  Pessoas curtiram seu trabalho</p>
+      <p className='perfilInfo'><FiFacebook/>{'  ' + work.user.facebook}</p>
+      <p className='perfilInfo'><FiInstagram/>{'  ' + work.user.instagram}</p>
+      <p className='perfilInfo'><FiLinkedin/> {'  NÃOESQUECE'}</p> */}
       <div className='perfilInfoContent'>
         <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
         <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
@@ -71,8 +88,8 @@ export default function PerfilInfo() {
         <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
         <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
       </div> 
-      <button className='editPerfilButton' type='button'>Editar Usuário</button>
-      <button className='deletePerfilButton' type='button'>Deletar Usuário</button> 
+      <button className='editPerfilButton' type='button' onClick={ () => editUserTrigger(id)}>Editar Usuário</button>
+      <button className='deletePerfilButton' type='button' onClick={ () => deleteUser(id)}>Deletar Usuário</button> 
     </div> 
   )
 }
