@@ -34,11 +34,8 @@ export default function SignUp () {
   const [signupStep , setSignupStep] = useState(true)
   const [sucessStep , setSucessStep] = useState(false)
 
-  // const signupStep = true
-  // const sucessStep = false
-
   const {register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validation)})
-  const addPost = data => axios.post("http://localhost:3000/works/registration", data)
+  const addPost = data => axios.post("https://workapp-be.herokuapp.com/works/registration", data)
   .then(res => {
     console.log(res)
   }).catch(err => {
@@ -238,7 +235,7 @@ export default function SignUp () {
                 </input>
                 <p className='error'>{errors.instagram?.message}</p>
             </div>
-            {/* <div className='socialMidia'>
+            <div className='socialMidia'>
               <FiLinkedin size='25' className='stepProgressIcon'/>
               <input className='signupInput social' 
                 type='text' 
@@ -247,7 +244,7 @@ export default function SignUp () {
                 {... register('linkedin')}>
                 </input>
                 <p className='error'>{errors.linkedin?.message}</p>
-            </div> */}
+            </div>
             <button className='signupButton'
               type='submit'
               >Finalizar</button>   
