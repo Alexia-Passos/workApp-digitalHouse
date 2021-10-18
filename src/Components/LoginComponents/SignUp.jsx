@@ -10,22 +10,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
 const validation = yup.object().shape({
-  firstName: yup.string().required('Conteúdo obrigatório'),
-  lastName: yup.string().required('Conteúdo obrigatório'),
-  cpf: yup.string().required('Conteúdo obrigatório'),
-  email: yup.string().required('Conteúdo obrigatório'),
-  password: yup.string().required('Conteúdo obrigatório'),
-  cep: yup.string().required('Conteúdo obrigatório'),
-  city: yup.string().required('Conteúdo obrigatório'),
-  uf: yup.string().required('Conteúdo obrigatório'),
-  // categoy: yup.string().required('Conteúdo obrigatório'),
-  workName: yup.string().required('Conteúdo obrigatório'),
-  description: yup.string().required('Conteúdo obrigatório'),
-  status: yup.string().required('Conteúdo obrigatório'),
-  whatsapp: yup.string().required('Conteúdo obrigatório'),
-  profile: yup.string().required('Conteúdo obrigatório'),
-  facebook: yup.string().required('Conteúdo obrigatório'),
-  instagram: yup.string().required('Conteúdo obrigatório'),
+  firstName: yup.string().required('Conteúdo obrigatório!'),
+  lastName: yup.string().required('Conteúdo obrigatório!'),
+  cpf: yup.string().required('Conteúdo obrigatório!'),
+  email: yup.string().required('Conteúdo obrigatório!'),
+  password: yup.string().required('Conteúdo obrigatório!'),
+  cep: yup.string().required('Conteúdo obrigatório!'),
+  city: yup.string().required('Conteúdo obrigatório!'),
+  uf: yup.string().required('Conteúdo obrigatório!'),
+  // categoy: yup.string().required('Conteúdo obrigatório!'),
+  workName: yup.string().required('Conteúdo obrigatório!'),
+  description: yup.string().required('Conteúdo obrigatório!'),
 })
 
 export default function SignUp() {
@@ -34,6 +29,7 @@ export default function SignUp() {
   const [signupStep, setSignupStep] = useState(true)
   const [sucessStep, setSucessStep] = useState(false)
   const [workingUser, setWorkingUser] = useState(false)
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(validation) })
 
   function handleWorkingUser() {
     setSignupStep(false)
@@ -46,21 +42,22 @@ export default function SignUp() {
   }
 
   //users POST
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(validation) })
-  const addPostUsers = data => axios.post("https://workapp-be.herokuapp.com/users/registration", data)
-    .then(res => {
-      console.log(res)
+  const addPostUser = data => axios.post("http://localhost:3000/users", data)
+  // const addPostUser = data => axios.post("https://workapp-be.herokuapp.com/users", data)
+    .then(() => {
+      console.log()
     }).catch(err => {
       console.log(err)
     })
 
 
   //works POST
-  const addPostWorks = data => axios.post("https://workapp-be.herokuapp.com/works/registration", data)
+  const addPostWorks = data => axios.post("http://localhost:3000/works", data)
+  // const addPostWorks = data => axios.post("https://workapp-be.herokuapp.com/works", data)
     .then(res => {
-      console.log(res)
+      console.log("Deu bom: works")
     }).catch(err => {
-      console.log(err)
+      console.log("Deu ruim")
     }, handleSucess())
 
   const options = [
@@ -80,8 +77,8 @@ export default function SignUp() {
       <Menubar />
       {signupStep &&
         <>
-          <form onSubmit={handleSubmit(addPostUsers)} className='signUp' action='/users' method='POST'>
-            <h2>Dados Pessoais</h2>
+          <form onSubmit={handleSubmit(addPostUser())} className='signUp' action='/users' method='POST'>
+            <h2 className='titleData'>Dados Pessoais</h2>
             <label htmlFor='firstName'>Nome</label>
             <input className='signupInput'
               type='text'
@@ -122,7 +119,7 @@ export default function SignUp() {
               {...register('password')}>
             </input>
             <p className='error'>{errors.password?.message}</p>
-            <h2>Dados de Endereço</h2>
+            <h2 className='titleData'>Dados de Endereço</h2>
             <label htmlFor='cep'>CEP</label>
             <input className='signupInput'
               type='text'
@@ -154,7 +151,7 @@ export default function SignUp() {
       }
       {workingUser &&
         <form onSubmit={handleSubmit(addPostWorks)} className='signUp' action='/users' method='POST'>
-          <h2>Dados Profissionais</h2>
+          <h2 className='titleData'>Dados Profissionais</h2>
           <label htmlFor='category'>Categoria</label>
           <Select className='perfilInputSelect'
             name='category'

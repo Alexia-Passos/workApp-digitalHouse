@@ -27,7 +27,8 @@ export default function PerfilInfo() {
   const id = useParams()
 
   useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/users/${id}`)
+    axios.get(`http://localhost:3000/users${id}`)
+    // axios.get(`https://workapp-be.herokuapp.com/users${id}`)
     .then(res => {
       console.log(res)
       setUsers(res.data)
@@ -37,7 +38,8 @@ export default function PerfilInfo() {
   },[])
   
   useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/works${id}`)
+    axios.get(`http://localhost:3000/works/${id}`)
+    // axios.get(`https://workapp-be.herokuapp.com//works/${id}`)
     .then(res => {
       console.log(res)
       setworks(res.data)
@@ -47,7 +49,8 @@ export default function PerfilInfo() {
   },[])
 
   function deleteUser(){
-    axios.delete(`https://workapp-be.herokuapp.com/works/delete${id}`)
+    axios.delete(`http://localhost:3000/users${id}`)
+    // axios.delete(`https://workapp-be.herokuapp.com//users${id}`)
       .then(res => {
         console.log(res)
         setworks(res.data)

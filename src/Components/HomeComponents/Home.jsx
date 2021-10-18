@@ -21,7 +21,8 @@ export default function Home() {
   const [works, setWorks] = useState([])
 
   useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/works`)
+    axios.get(`http://localhost:3000/works`)
+    // axios.get(`https://workapp-be.herokuapp.com/works`)
     .then(res => {
       console.log(res)
       setWorks(res.data)

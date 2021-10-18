@@ -19,12 +19,12 @@ function App() {
       <main className='App'>
         <Switch>
           <Route exact path='/' component = {Home} />
-          <Route exact path='/' component = {NotFound} />
-          <Route exact path='/' component = {Login} />
-          <Route exact path='/' component = {SignUp} />
-          <Route exact path='/' component = {Security} />
-          <Route exact path='/' component = {Privacy} />
-          <Route exact path='/' component = {JobDetails} />
+          <Route exact path='/notFound' component = {NotFound} />
+          <Route exact path='/login' component = {Login} />
+          <Route exact path='/cadastro' component = {SignUp} />
+          <Route exact path='/seguranca' component = {Security} />
+          <Route exact path='/privacidade' component = {Privacy} />
+          <Route exact path='/detalhes' component = {JobDetails} />
           <Route exact path='/assistencia/:id'>
             <Category categoryType='assistencia'/>
           </Route>

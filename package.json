@@ -11,10 +11,12 @@
     "axios": "^0.23.0",
     "feather-icons-react": "^0.4.3",
     "history": "^5.0.1",
+    "json-server": "^0.17.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.17.4",
     "react-icons": "^4.2.0",
+    "react-router": "^5.2.1",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "react-select": "^5.1.0",
@@ -25,7 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "backend": "json-server --watch db/db.json"
   },
   "eslintConfig": {
     "extends": [

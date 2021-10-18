@@ -1,0 +1,132 @@
+{
+  "users": {
+    "users": [
+      {
+        "firstName": "Ana Laura",
+        "lastName": "Silva",
+        "cpf": 9999999999,
+        "whatsapp": 999999999999,
+        "instagram": "aninha",
+        "facebook": "aninha",
+        "profile": "foto",
+        "email": "blabla@bla.com",
+        "password": "34567u8",
+        "cep": 1234567,
+        "city": "São Paulo",
+        "uf": "SP"
+      },
+      {
+        "firstName": "Ana Laura",
+        "lastName": "Silva",
+        "cpf": 9999999999,
+        "whatsapp": 999999999999,
+        "instagram": "aninha",
+        "facebook": "aninha",
+        "profile": "foto",
+        "email": "blabla@bla.com",
+        "password": "34567u8",
+        "cep": 1234567,
+        "city": "São Paulo",
+        "uf": "SP"
+      },
+      {
+        "firstName": "Ana Laura",
+        "lastName": "Silva",
+        "cpf": 9999999999,
+        "whatsapp": 999999999999,
+        "instagram": "aninha",
+        "facebook": "aninha",
+        "profile": "foto",
+        "email": "blabla@bla.com",
+        "password": "34567u8",
+        "cep": 1234567,
+        "city": "São Paulo",
+        "uf": "SP"
+      }
+    ]
+  },
+  "works": {
+    "works": [
+      {
+        "categoryName": "",
+        "categoryId": 1,
+        "workName": "",
+        "photo1": "",
+        "photo2": "",
+        "photo3": "",
+        "photo4": "",
+        "photo5": ""
+      },
+      {
+        "categoryName": "",
+        "categoryId": 1,
+        "workName": "",
+        "photo1": "",
+        "photo2": "",
+        "photo3": "",
+        "photo4": "",
+        "photo5": ""
+      },
+      {
+        "categoryName": "",
+        "categoryId": 1,
+        "workName": "",
+        "photo1": "",
+        "photo2": "",
+        "photo3": "",
+        "photo4": "",
+        "photo5": ""
+      },
+      {
+        "categoryName": "",
+        "categoryId": 1,
+        "workName": "",
+        "photo1": "",
+        "photo2": "",
+        "photo3": "",
+        "photo4": "",
+        "photo5": ""
+      },
+      {
+        "categoryName": "",
+        "categoryId": 1,
+        "workName": "",
+        "photo1": "",
+        "photo2": "",
+        "photo3": "",
+        "photo4": "",
+        "photo5": ""
+      },
+      {
+        "categoryName": "",
+        "categoryId": 1,
+        "workName": "",
+        "photo1": "",
+        "photo2": "",
+        "photo3": "",
+        "photo4": "",
+        "photo5": ""
+      },
+      {
+        "categoryName": "",
+        "categoryId": 1,
+        "workName": "",
+        "photo1": "",
+        "photo2": "",
+        "photo3": "",
+        "photo4": "",
+        "photo5": ""
+      },
+      {
+        "categoryName": "",
+        "categoryId": 1,
+        "workName": "",
+        "photo1": "",
+        "photo2": "",
+        "photo3": "",
+        "photo4": "",
+        "photo5": ""
+      }
+    ]
+  }
+}

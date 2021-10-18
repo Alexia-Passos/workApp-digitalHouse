@@ -22,7 +22,8 @@ export default function Home() {
   const [works, setWorks] = useState([])
   console.log(users)
   useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/users/${detailId}`)
+    axios.get(`http://localhost:3000/users/${detailId}`)
+    // axios.get(`https://workapp-be.herokuapp.com/${detailId}`)
     .then(res => {
       console.log(res)
       setUsers(res.data)
@@ -32,7 +33,8 @@ export default function Home() {
   },[])
   
   useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/works/${detailId}`)
+    axios.get(`http://localhost:3000/works/${detailId}`)
+    // axios.get(`https://workapp-be.herokuapp.com/works/${detailId}`)
     .then(res => {
       console.log(res)
       setWorks(res.data)

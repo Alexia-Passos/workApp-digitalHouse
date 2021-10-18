@@ -15,7 +15,8 @@ export default function Home() {
 
   //GET users
   useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/works/:id`)
+    axios.get(`http://localhost:3000/users/:id`)
+    // axios.get(`https://workapp-be.herokuapp.com/users/:id`)
     .then(res => {
       console.log(res)
       setWorks(res.data)

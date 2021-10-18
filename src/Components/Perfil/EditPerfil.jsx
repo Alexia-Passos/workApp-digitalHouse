@@ -38,7 +38,7 @@ export default function EditPerfil () {
   const [perfilStep , setPerfilStep] = useState(false)
 
   const {register, handleSubmit, formState: {errors}, reset} = useForm({resolver: yupResolver(validation)})
-  const addPut = data => axios.put(`https://workapp-be.herokuapp.com/works/change/${id}`, data)
+  const addPut = data => axios.put(`https://workapp-be.herokuapp.com/works/${id}`, data)
   .then(res => {
     console.log(res)
   }).catch(err => {
@@ -61,7 +61,8 @@ export default function EditPerfil () {
   }
 
   useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/users/:id`)
+    axios.get(`http://localhost:3000/users/:id`)
+    // axios.get(`https://workapp-be.herokuapp.com/users/:id`)
     .then(res => {
       console.log(res)
       reset(res.data)
