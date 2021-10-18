@@ -17,7 +17,7 @@ export default function Card() {
   const [works, setWorks] = useState([])
   
   useEffect(() => {
-    axios.get(`http://localhost:3000/works/`)
+    axios.get(`https://workapp-be.herokuapp.com/works/`)
     .then(res => {
       console.log(res)
       setWorks(res.data)
@@ -29,7 +29,7 @@ export default function Card() {
   console.log(works.userId, "to aqui")
 
   function filterCard(event){
-    works.filter(work => work.userId == event.target
+    works.filter(work => work.userId === event.target
   )}
 
   return( 

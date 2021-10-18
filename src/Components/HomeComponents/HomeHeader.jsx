@@ -16,7 +16,7 @@ export default function HomeHeader() {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-      axios.get(`http://localhost:3000/users/:id`)
+      axios.get(`https://workapp-be.herokuapp.com/users/registration/:id`)
       .then(res => {
         console.log(res)
         setUsers(res.data)

@@ -36,7 +36,6 @@ export default function EditPerfil () {
   const [EditPerfilStep , setEditPerfilStep] = useState(true)
   const [sucessStep , setSucessStep] = useState(false)
   const [perfilStep , setPerfilStep] = useState(false)
-  const [users , setUsers] = useState(false)
 
   const {register, handleSubmit, formState: {errors}, reset} = useForm({resolver: yupResolver(validation)})
   const addPut = data => axios.put(`https://workapp-be.herokuapp.com/works/change/${id}`, data)
@@ -44,10 +43,25 @@ export default function EditPerfil () {
     console.log(res)
   }).catch(err => {
     console.log(err)
-  })  
+  }, handleRenderComp('condition'))  
+
+  function handleRenderComp(condition){
+    switch('condition'){
+      case 'EditPerfil':
+        setPerfilStep(false);
+        setEditPerfilStep(true);
+        break;
+      case 'sendSucess':
+        setEditPerfilStep(false);
+        setSucessStep(true);
+        break;
+      default:
+        setPerfilStep(true);
+    }
+  }
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/users/:id`)
+    axios.get(`https://workapp-be.herokuapp.com/users/:id`)
     .then(res => {
       console.log(res)
       reset(res.data)
@@ -148,7 +162,6 @@ export default function EditPerfil () {
             <label htmlFor='category'>Categoria</label>
             <Select className='perfilInputSelect' 
               name='category' 
-              id='category'
               id='category'
               options={options} 
               {... register('category')}>

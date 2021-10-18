@@ -21,7 +21,7 @@ export default function Home() {
   const [works, setWorks] = useState([])
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/works`)
+    axios.get(`https://workapp-be.herokuapp.com/works`)
     .then(res => {
       console.log(res)
       setWorks(res.data)
@@ -29,7 +29,8 @@ export default function Home() {
       console.log(err)
     })  
   },[])
-
+  console.log(works)
+  
   return (
     <>
       <HomeHeader/>
@@ -44,15 +45,15 @@ export default function Home() {
             {
               resolve: slidesToShowPlugin,
               options: {
-              numberOfSlides: 2
+              numberOfSlides: 3
               }
             },
           ]}
         >
-          <img className='carouselImg' src={enginner} />
-          <img className='carouselImg' src={coach} />
-          <img className='carouselImg' src={tech} />
-          <img className='carouselImg' src={psycho} />
+          <img className='carouselImg' alt='carousel' src={enginner} />
+          <img className='carouselImg' alt='carousel' src={coach} />
+          <img className='carouselImg' alt='carousel' src={tech} />
+          <img className='carouselImg' alt='carousel' src={psycho} />
         </Carousel>
       </div>
       <Footer/>

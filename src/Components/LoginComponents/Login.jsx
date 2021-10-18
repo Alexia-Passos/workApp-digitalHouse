@@ -3,15 +3,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 //comp
 import '../../styleCss/login.css'
-import LoginMenu from '../LoginComponents/LoginMenu'
-//img
-import whiteLogo from '../../img/whiteLogo.png'
+import MenuBar from '../HomeComponents/MenuBar'
 
 export default function Login() {
   return (
       <div className='loginContainer'>
-        <img  alt='logo' className='logoImg' src={whiteLogo}></img>
-        <LoginMenu/>
+        <MenuBar/>
         <div className='login'>
           <h2>Entrar no Freelas</h2>
           <label htmlFor='login'>Login</label>

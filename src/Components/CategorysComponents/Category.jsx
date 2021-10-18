@@ -16,7 +16,7 @@ export default function Category() {
   const id = useParams()
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/works/${id}`)
+    axios.get(`https://workapp-be.herokuapp.com/works/${id}`)
     .then(res => {
       console.log(res)
       setWorks(res.data)
@@ -24,6 +24,8 @@ export default function Category() {
       console.log(err)
     })  
   },[])
+
+  console.log(works)
 
   return (
     <>

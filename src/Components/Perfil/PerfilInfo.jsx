@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react'
 import axios from 'axios'
 import '../../styleCss/perfilInfo.css'
 import user from '../../img/user.jpeg'
-import {FiFacebook , FiInstagram , FiLinkedin} from 'react-icons/fi'
+// import {FiFacebook , FiInstagram , FiLinkedin} from 'react-icons/fi'
 import { useParams } from 'react-router'
 
 const dados = [
@@ -27,7 +27,7 @@ export default function PerfilInfo() {
   const id = useParams()
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/users/${id}`)
+    axios.get(`https://workapp-be.herokuapp.com/users/${id}`)
     .then(res => {
       console.log(res)
       setUsers(res.data)
@@ -37,7 +37,7 @@ export default function PerfilInfo() {
   },[])
   
   useEffect(() => {
-    axios.get(`http://localhost:3000/works/${id}`)
+    axios.get(`https://workapp-be.herokuapp.com/works${id}`)
     .then(res => {
       console.log(res)
       setworks(res.data)
@@ -47,7 +47,7 @@ export default function PerfilInfo() {
   },[])
 
   function deleteUser(){
-    axios.delete(`http://localhost:3000/works/delete/${id}`)
+    axios.delete(`https://workapp-be.herokuapp.com/works/delete${id}`)
       .then(res => {
         console.log(res)
         setworks(res.data)
@@ -59,7 +59,7 @@ export default function PerfilInfo() {
   function editUserTrigger(id){
     setEditUser(true)
   }
-
+  console.log(users, works, editUser)
   return (
     <div className='perfilInfo'>  
       <h2>Dados Pessoais</h2>

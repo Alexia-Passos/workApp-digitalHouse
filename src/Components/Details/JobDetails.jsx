@@ -20,9 +20,9 @@ const dados = [
 export default function Home() {
   const [users, setUsers] = useState([])
   const [works, setWorks] = useState([])
-
+  console.log(users)
   useEffect(() => {
-    axios.get(`http://localhost:3000/users/${detailId}`)
+    axios.get(`https://workapp-be.herokuapp.com/users/${detailId}`)
     .then(res => {
       console.log(res)
       setUsers(res.data)
@@ -32,7 +32,7 @@ export default function Home() {
   },[])
   
   useEffect(() => {
-    axios.get(`http://localhost:3000/works/${detailId}`)
+    axios.get(`https://workapp-be.herokuapp.com/works/${detailId}`)
     .then(res => {
       console.log(res)
       setWorks(res.data)

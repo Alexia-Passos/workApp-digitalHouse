@@ -8,7 +8,7 @@ import EditPerfil from './Components/Perfil/EditPerfil'
 import Privacy from './Components/HomeComponents/Privacy';
 import Security from './Components/HomeComponents/Security';
 import JobDetails from './Components/Details/JobDetails';
-import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import history from './History';
 
 console.log(history.location.pathname)
@@ -18,9 +18,13 @@ function App() {
     <Router history={ history }>
       <main className='App'>
         <Switch>
-          <Route exact path='/'>
-            <Home/>
-          </Route>
+          <Route exact path='/' component = {Home} />
+          <Route exact path='/' component = {NotFound} />
+          <Route exact path='/' component = {Login} />
+          <Route exact path='/' component = {SignUp} />
+          <Route exact path='/' component = {Security} />
+          <Route exact path='/' component = {Privacy} />
+          <Route exact path='/' component = {JobDetails} />
           <Route exact path='/assistencia/:id'>
             <Category categoryType='assistencia'/>
           </Route>
@@ -51,27 +55,10 @@ function App() {
           <Route exact path='/tecnologia/:id'>
             <Category categoryType='tecnologia'/>
           </Route>
-          <Route exact path='/notfound'>
-            <NotFound/>
-          </Route>
-          <Route exact path='/login'>
-            <Login/>
-          </Route>
-          <Route exact path='/cadastro'>
-            <SignUp/>
-          </Route>
           <Route exact path='/perfil/:id'>
             <EditPerfil/>
           </Route>
-          <Route exact path='/seguranca'>
-            <Security/>
-          </Route>
-          <Route exact path='/privacidade'>
-            <Privacy/>
-          </Route>
-          <Route exact path='/detalhes/:id'>
-            <JobDetails/>
-          </Route>
+        
         </Switch>
       </main>
     </Router>
