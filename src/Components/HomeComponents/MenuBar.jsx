@@ -14,7 +14,6 @@ export default function Home() {
 
   //GET users
   useEffect(() => {
-    // axios.get(`http://localhost:3000/works/:id`)
     axios.get(`https://workapp-be.herokuapp.com/works/:id`)
     .then(res => {
       console.log(res)
@@ -23,16 +22,6 @@ export default function Home() {
       console.log(err)
     })  
   },[])
-
-  const um = works.categoryId == 1
-  const dois = works.categoryId == 2
-  const tres= works.categoryId == 3
-  // const um = works.categoryId == 1
-  // const um = works.categoryId == 1
-  // const um = works.categoryId == 1
-  // const um = works.categoryId == 1
-  // const um = works.categoryId == 1
-  // const um = works.categoryId == 1
 
   return (
     <>
@@ -47,7 +36,7 @@ export default function Home() {
         <div className='menuBarIcons'><Link to='/estetica' className='menuLink'>< FiHeart size='35'/> <p>Estética</p> </Link></div>
         <div className='menuBarIcons'><Link to='/manutencao' className='menuLink'><FiTool size='35'/> <p>Manutenção</p></Link></div>
         <div className='menuBarIcons'><Link to='/saude' className='menuLink'><FiActivity size='35'/> <p>Saúde</p> </Link></div>
-        <div className='menuBarIcons'><Link to='/tecnologia/10' className='menuLink'><FiAtSign size='35'/> <p>Tecnologia</p> </Link></div>
+        <div className='menuBarIcons'><Link to='/tecnologia' className='menuLink'><FiAtSign size='35'/> <p>Tecnologia</p> </Link></div>
         <div className='menuBarLast'></div>
       </div>
     </>
