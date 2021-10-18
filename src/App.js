@@ -25,37 +25,37 @@ function App() {
           <Route exact path='/seguranca' component = {Security} />
           <Route exact path='/privacidade' component = {Privacy} />
           <Route exact path='/detalhes' component = {JobDetails} />
-          <Route exact path='/assistencia/:id'>
+          <Route exact path='/assistencia'>
             <Category categoryType='assistencia'/>
           </Route>
-          <Route exact path='/administrativos/:id'>
+          <Route exact path='/administrativos'>
             <Category categoryType='administrativos'/>
           </Route>
-          <Route exact path='/artesanais/:id'>
+          <Route exact path='/artesanais'>
             <Category categoryType='artesanais'/>
           </Route>
-          <Route exact path='/consultoria/:id'>
+          <Route exact path='/consultoria'>
             <Category categoryType='consultoria'/>
           </Route>
-          <Route exact path='/domesticos/:id'>
+          <Route exact path='/domesticos'>
             <Category categoryType='domesticos'/>
           </Route>
-          <Route exact path='/educacao/:id'>
+          <Route exact path='/educacao'>
             <Category categoryType='educacao'/>
           </Route>
-          <Route exact path='/estetica/:id'>
+          <Route exact path='/estetica'>
             <Category categoryType='estetica'/>
           </Route>
-          <Route exact path='/manutencao/:id'>
+          <Route exact path='/manutencao'>
             <Category categoryType='manutencao'/>
           </Route>
-          <Route exact path='/saude/:id'>
+          <Route exact path='/saude'>
             <Category categoryType='saude'/>
           </Route>
-          <Route exact path='/tecnologia/:id'>
+          <Route exact path='/tecnologia'>
             <Category categoryType='tecnologia'/>
           </Route>
-          <Route exact path='/perfil/:id'>
+          <Route exact path='/perfil'>
             <EditPerfil/>
           </Route>
         

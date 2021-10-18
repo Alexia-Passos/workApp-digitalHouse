@@ -6,50 +6,90 @@ import '../../styleCss/card.css'
 //dep
 import axios from 'axios'
 import { FiThumbsUp } from 'react-icons/fi'
+import Carousel , { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 const dados = [
   {
-      photoLink: "https://www.aihr.com/wp-content/uploads/working-from-home-background-and-featured-image.png",
+    photoLink: "https://www.aihr.com/wp-content/uploads/working-from-home-background-and-featured-image.png",
   }
 ]
 
 export default function Card() {
   const [works, setWorks] = useState([])
-  
+
   useEffect(() => {
-    axios.get(`http://localhost:3000/works/`)
-    // axios.get(`https://workapp-be.herokuapp.com/works/`)
-    .then(res => {
-      console.log(res)
-      setWorks(res.data)
-    }).catch(err => {
-      console.log(err)
-    })  
-  },[])
+    // axios.get(`http://localhost:3000/works/`)
+    axios.get(`https://workapp-be.herokuapp.com/works/`)
+      .then(res => {
+        console.log(res)
+        setWorks(res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+  }, [])
 
-  console.log(works.userId, "to aqui")
+  return (
+    <div className='cardsContainer'>
+      <Carousel
+          plugins={[
+            'infinite',
+            'arrows',
+            {
+              resolve: slidesToShowPlugin,
+              options: {
+              numberOfSlides: 3
+              }
+            },
+          ]}
+        >
+          <Link to='/detalhes' className='cardsContent' >
+          <h6 className='category'>teste</h6>
+          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+          <div className='nest'>
+            <div>nome</div>
+            <div>2 <FiThumbsUp size='15' /></div>
+          </div>
+        </Link>
 
-  function filterCard(event){
-    works.filter(work => work.userId === event.target
-  )}
+        <Link to='/detalhes' className='cardsContent' >
+          <h6 className='category'>teste</h6>
+          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+          <div className='nest'>
+            <div>nome</div>
+            <div>2 <FiThumbsUp size='15' /></div>
+          </div>
+        </Link>
 
-  return( 
-    <div className='cardsContainer'>  
-      {works.map((work, index) => {
-        return (
-          <Link  onClick={() => filterCard(`${work.userId ? work.userId : ""}`)} to={ work.userId ? `detalhes/${work.userId}` : ""} key={index} className='cardsContent' >
-            <h6 className='category'>{work.workName}</h6>
-            <img  alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
-            <div className='nest'>
-              <div>{work.user.firstName + '  ' + work.user.lastName}</div>
-              <div>{work.like.likeAccount} <FiThumbsUp size='15'/></div>
-            </div>
-          </Link>
-        )
-      })}
-    </div> 
+        <Link to='/detalhes' className='cardsContent' >
+          <h6 className='category'>teste</h6>
+          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+          <div className='nest'>
+            <div>nome</div>
+            <div>2 <FiThumbsUp size='15' /></div>
+          </div>
+        </Link>
+
+        <Link to='/detalhes' className='cardsContent' >
+          <h6 className='category'>teste</h6>
+          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+          <div className='nest'>
+            <div>nome</div>
+            <div>2 <FiThumbsUp size='15' /></div>
+          </div>
+        </Link>
+
+        <Link to='/detalhes' className='cardsContent' >
+          <h6 className='category'>teste</h6>
+          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+          <div className='nest'>
+            <div>nome</div>
+            <div>2 <FiThumbsUp size='15' /></div>
+          </div>
+        </Link>
+        </Carousel>
+        
+
+    </div>
   )
 }
-
-//className='avaliation' onClick={() => setLikesCounter(counter + 1)}>{work.like.likeAccount}  
-//  const [counter, setLikesCounter] = useState(0)

@@ -32,9 +32,9 @@ export default function Category() {
     <>
       <HomeHeader/>
       <MenuBar/>
+      <h1>Encontre um Serviço</h1>
       <div className='cardCategory'>
-        <h1>Encontre um Serviço</h1>
-        <Card/>
+          <Card/>
       </div>
       <Footer/>
     </>
