@@ -29,19 +29,18 @@ export default function HomeHeader() {
     
     return (
       <>
-        {logged === true &&
+        {logged === false &&
           <div div className='ContentLogged'>
                 <Link to='perfil' className='headerIcons'>< FiBell size='20'/> </Link>
                 <Link to={{pathname:`perfil/${users.userId}`}} id='perfil'> <img  alt='jobPic' className='loginPic' src={ user }/></Link>
           </div>
         }
-        {logged === false &&
+        {logged === true &&
           <div className='homeHeaderContent'>
               <div className='loginBar'>
                 <h6 className='loginDescription'> Prestador de Serviço, já tem um cadastro? </h6>
-                <button className='loginBtn'>Faça seu login!</button>
-                <h6 className='loginDescription'> Ou </h6>
-                <button className='loginBtn'>Crie uma conta</button>
+                <Link className='loginBtn' to='/login'><button className='loginBtn'>Faça seu login!</button></Link>
+                <Link to='/cadastro' className='loginBtn'><button className='loginBtn'>Crie uma conta</button></Link>
               </div>
           </div>
         }

@@ -10,7 +10,7 @@ export default function Login() {
       <div className='loginContainer'>
         <MenuBar/>
         <div className='login'>
-          <h2>Entrar no Freelas</h2>
+          <h2>Entrar no WorkApp</h2>
           <label htmlFor='login'>Login</label>
           <input className='loginInput'  type='text' name='login' id='login'></input>
           <label htmlFor='password'>Senha</label>

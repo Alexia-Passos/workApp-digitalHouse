@@ -18,7 +18,6 @@ const validation = yup.object().shape({
   cep: yup.string().required('Conteúdo obrigatório!'),
   city: yup.string().required('Conteúdo obrigatório!'),
   uf: yup.string().required('Conteúdo obrigatório!'),
-  // categoy: yup.string().required('Conteúdo obrigatório!'),
   workName: yup.string().required('Conteúdo obrigatório!'),
   description: yup.string().required('Conteúdo obrigatório!'),
 })
@@ -50,16 +49,23 @@ export default function SignUp() {
       console.log(err)
     })
 
+  // const addPostUser = data => axios.post("http://localhost:3000/users/registration", data)
+  //   .then(() => {
+  //       console.log()
+  //     }).catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
   //works POST
-  const addPostWorks = data => axios.post("http://localhost:3000/works", data)
-  // const addPostWorks = data => axios.post("https://workapp-be.herokuapp.com/works", data)
-    .then(res => {
-      console.log("Deu bom: works")
-    }).catch(err => {
-      console.log("Deu ruim")
-    }, handleSucess())
-
+ const addPostWorks = data => axios.post("http://localhost:3000/works", data)
+ // const addPostWorks = data => axios.post("https://workapp-be.herokuapp.com/works", data)
+   .then(res => {
+     console.log("Deu bom: works")
+   }).catch(err => {
+     console.log("Deu ruim")
+   }, handleSucess())
+  
   const options = [
     { value: "1", label: 'Assistência' },
     { value: "2", label: 'Administrativos' },
