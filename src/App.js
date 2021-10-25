@@ -4,7 +4,7 @@ import Category from './Components/CategorysComponents/Category'
 import NotFound from './Components/HomeComponents/NotFound';
 import Login from './Components/LoginComponents/Login';
 import SignUp from './Components/LoginComponents/SignUp';
-import EditPerfil from './Components/Perfil/EditPerfil'
+import PerfilInfo from './Components/Perfil/PerfilInfo'
 import Privacy from './Components/HomeComponents/Privacy';
 import Security from './Components/HomeComponents/Security';
 import JobDetails from './Components/Details/JobDetails';
@@ -13,11 +13,13 @@ import history from './History';
 
 console.log(history.location.pathname)
 
+const device = (/Mobi/.test(navigator.userAgent))
+
 function App() {
   return (
     <Router history={ history }>
-      <main className='App'>
-        <Switch>
+      <main className={`App ${device ? 'mobile' : 'desktop'}`}>
+        <Switch>s
           <Route exact path='/' component = {Home} />
           <Route exact path='/notFound' component = {NotFound} />
           <Route exact path='/login' component = {Login} />
@@ -56,9 +58,8 @@ function App() {
             <Category categoryType='tecnologia'/>
           </Route>
           <Route exact path='/perfil'>
-            <EditPerfil/>
+            <PerfilInfo/>
           </Route>
-        
         </Switch>
       </main>
     </Router>

@@ -16,13 +16,13 @@ import coach from '../../img/edfis.png'
 import psycho from '../../img/psico.png'
 import tech  from '../../img/tech.png'
 
+const device = (/Mobi/.test(navigator.userAgent))
 
 export default function Home() {
   const [works, setWorks] = useState([])
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/works`)
-    // axios.get(`https://workapp-be.herokuapp.com/works`)
+    axios.get(`https://workapp-be.herokuapp.com/works`)
     .then(res => {
       console.log(res)
       setWorks(res.data)
@@ -32,6 +32,7 @@ export default function Home() {
   },[])
   console.log(works)
   
+  const isMobile = device === true ? 1 : 3
   return (
     <>
       <HomeHeader/>
@@ -46,7 +47,7 @@ export default function Home() {
             {
               resolve: slidesToShowPlugin,
               options: {
-              numberOfSlides: 3
+              numberOfSlides: isMobile
               }
             },
           ]}
@@ -56,6 +57,7 @@ export default function Home() {
           <img className='carouselImg' alt='carousel' src={tech} />
           <img className='carouselImg' alt='carousel' src={psycho} />
         </Carousel>
+        {console.log(device)}
       </div>
       <Footer/>
     </>

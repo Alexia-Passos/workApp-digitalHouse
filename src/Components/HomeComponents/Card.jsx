@@ -15,11 +15,12 @@ const dados = [
   }
 ]
 
+const device = (/Mobi/.test(navigator.userAgent))
+
 export default function Card() {
   const [works, setWorks] = useState([])
 
   useEffect(() => {
-    // axios.get(`http://localhost:3000/works/`)
     axios.get(`https://workapp-be.herokuapp.com/works/`)
       .then(res => {
         console.log(res)
@@ -29,6 +30,7 @@ export default function Card() {
       })
   }, [])
 
+  const isMobile = device === true ? 1 : 3
   return (
     <div className='cardsContainer'>
       <Carousel
@@ -38,7 +40,7 @@ export default function Card() {
             {
               resolve: slidesToShowPlugin,
               options: {
-              numberOfSlides: 3
+              numberOfSlides: isMobile
               }
             },
           ]}

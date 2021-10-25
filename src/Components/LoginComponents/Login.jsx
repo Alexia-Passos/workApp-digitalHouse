@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom'
 //comp
 import '../../styleCss/login.css'
 import MenuBar from '../HomeComponents/MenuBar'
+import history from '../../History';
+
+const loginUser = event => {
+  localStorage.setItem('userId', '205');
+  history.push('/')
+}
 
 export default function Login() {
   return (
@@ -15,7 +21,7 @@ export default function Login() {
           <input className='loginInput'  type='text' name='login' id='login'></input>
           <label htmlFor='password'>Senha</label>
           <input className='loginInput'  type='password' name='password' id='password'></input>
-          <button className='loginButton'>Entrar</button>
+          <button className='loginButton' onClick={ event => loginUser(event)}>Entrar</button>
           <div>Ainda não possui cadastro? <Link to='/signUp'>Crie uma conta</Link></div>
         </div>
         <div className='loginFooter'>

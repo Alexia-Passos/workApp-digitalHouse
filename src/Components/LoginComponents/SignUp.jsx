@@ -1,278 +1,298 @@
 
-import React, { useState } from 'react'
+import React, { Component } from 'react'
 import Select from 'react-select'
-import { useForm } from 'react-hook-form'
 import '../../styleCss/signup.css'
 import Menubar from '../HomeComponents/MenuBar'
 import { FiFacebook, FiInstagram, FiLinkedin, FiStar } from 'react-icons/fi'
 import axios from 'axios'
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 
-const validation = yup.object().shape({
-  firstName: yup.string().required('Conteúdo obrigatório!'),
-  lastName: yup.string().required('Conteúdo obrigatório!'),
-  cpf: yup.string().required('Conteúdo obrigatório!'),
-  email: yup.string().required('Conteúdo obrigatório!'),
-  password: yup.string().required('Conteúdo obrigatório!'),
-  cep: yup.string().required('Conteúdo obrigatório!'),
-  city: yup.string().required('Conteúdo obrigatório!'),
-  uf: yup.string().required('Conteúdo obrigatório!'),
-  workName: yup.string().required('Conteúdo obrigatório!'),
-  description: yup.string().required('Conteúdo obrigatório!'),
-})
-
-export default function SignUp() {
-
-  //states
-  const [signupStep, setSignupStep] = useState(true)
-  const [sucessStep, setSucessStep] = useState(false)
-  const [workingUser, setWorkingUser] = useState(false)
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(validation) })
-
-  function handleWorkingUser() {
-    setSignupStep(false)
-    setWorkingUser(true)
+class SignUp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      cpf: null,
+      whatsapp: null,
+      instagram: '',
+      facebook: '',
+      profilefoto: '',
+      email: '',
+      password: '',
+      cep: null,
+      city: '',
+      uf: '',
+      categoryName: '',
+      categoryId: null,
+      workName: '',
+      signupStep: true,
+      workingUser: false,
+      category: '',
+      workName: '',
+      description: '',
+      status: true,
+      profile: '',
+      workingPic: '',
+      facebook: '',
+      instagram: '',
+      linkedin: '',
+      sucessStep: false,
+      userId: null
+    }
   }
 
-  function handleSucess() {
-    setWorkingUser(false);
-    setSucessStep(true);
+  handleInput = (event, field) => {
+    this.setState({ [field]: event.target.value })
+    setTimeout(() => {
+      console.log(this.state[field]);
+    }, 500);
   }
 
-  //users POST
-  const addPostUser = data => axios.post("http://localhost:3000/users", data)
-  // const addPostUser = data => axios.post("https://workapp-be.herokuapp.com/users", data)
-    .then(() => {
-      console.log()
-    }).catch(err => {
-      console.log(err)
+  handleUsersSubmit = async (event, isWorkForm) => {
+
+    event.preventDefault();
+    const usersState =
+    {
+      "firstName": this.state.firstName,
+      "lastName": this.state.lastName,
+      "cpf": this.state.cpf,
+      "whatsapp": this.state.whatsapp,
+      "instagram": this.state.instagram,
+      "facebook": this.state.facebook,
+      "profilefoto": this.state.profilefoto,
+      "email": this.state.email,
+      "password": this.state.password,
+      "cep": this.state.cep,
+      "city": this.state.city,
+      "uf": this.state.uf,
+    }
+
+    await axios({
+      method: 'POST',
+      url: "https://workapp-be.herokuapp.com/users/registration",
+      data: usersState,
     })
+      .then(res => {
+        console.log(res)
+        return (
+          this.setState({
+            userId: res.data.id,
+            signupStep: false,
+            sucessStep: isWorkForm ? false : true,
+            workingUser: isWorkForm ? true : false
+          })
+        )
+      })
+      .catch(error => console.log('error', error));
+  }
 
-  // const addPostUser = data => axios.post("http://localhost:3000/users/registration", data)
-  //   .then(() => {
-  //       console.log()
-  //     }).catch(err => {
-  //       console.log(err)
-  //     })
-  // }
+  handleWorkssSubmit = async (event) => {
 
-  //works POST
- const addPostWorks = data => axios.post("http://localhost:3000/works", data)
- // const addPostWorks = data => axios.post("https://workapp-be.herokuapp.com/works", data)
-   .then(res => {
-     console.log("Deu bom: works")
-   }).catch(err => {
-     console.log("Deu ruim")
-   }, handleSucess())
-  
-  const options = [
-    { value: "1", label: 'Assistência' },
-    { value: "2", label: 'Administrativos' },
-    { value: "3", label: 'Artesanais' },
-    { value: "4", label: 'Consultoria' },
-    { value: "5", label: 'Domésticos' },
-    { value: "6", label: 'Educação' },
-    { value: "7", label: 'Estética' },
-    { value: "8", label: 'Manutenção' },
-    { value: "9", label: 'Saúde' },
-    { value: "10", label: 'Tecnologia' }
-  ]
-  return (
-    <div className='signUpContainer'>
-      <Menubar />
-      {signupStep &&
-        <>
-          <form onSubmit={handleSubmit(addPostUser())} className='signUp' action='/users' method='POST'>
-            <h2 className='titleData'>Dados Pessoais</h2>
-            <label htmlFor='firstName'>Nome</label>
+    event.preventDefault();
+    const worksState =
+    {
+      "userId": this.state.userId,
+      "workName": this.state.workName,
+      "category": this.state.category,
+      "description": this.state.description,
+      "profile": this.state.profile,
+    }
+
+    await axios({
+      method: 'POST',
+      url: "https://workapp-be.herokuapp.com/works/registration",
+      data: worksState,
+    })
+      .then(res => {
+        console.log(res)
+        return (
+          this.setState({
+            workingUser: false,
+            sucessStep: true,
+          })
+        )
+      })
+      .catch(error => console.log('error', error));
+  }
+
+  render() {
+    const { firstName, lastName, cpf, whatsapp, instagram, facebook, email, password, cep, city, uf, categoryName, categoryId, signupStep,
+      workingUser, category, workName, description, profile, workingPic, sucessStep } = this.state
+
+    const options = [
+      { value: "1", label: 'Assistência' },
+      { value: "2", label: 'Administrativos' },
+      { value: "3", label: 'Artesanais' },
+      { value: "4", label: 'Consultoria' },
+      { value: "5", label: 'Domésticos' },
+      { value: "6", label: 'Educação' },
+      { value: "7", label: 'Estética' },
+      { value: "8", label: 'Manutenção' },
+      { value: "9", label: 'Saúde' },
+      { value: "10", label: 'Tecnologia' }
+    ]
+    return (
+      <div className='signUpContainer'>
+        <Menubar />
+        {signupStep &&
+          <>
+            <form className='signUp'>
+              <h2 className='titleData'>Dados Pessoais</h2>
+              <label htmlFor='firstName'>Nome</label>
+              <input className='signupInput'
+                type='text'
+                name='firstName'
+                id='firstName'
+                value={firstName}
+                onChange={(event) => this.handleInput(event, 'firstName')}
+              />
+              <label htmlFor='lastName'>Sobrenome</label>
+              <input className='signupInput'
+                type='text'
+                name='lastName'
+                id='lastName'
+                value={lastName}
+                onChange={(event) => this.handleInput(event, 'lastName')}
+              />
+              <label htmlFor='cpf'>CPF</label>
+              <input className='signupInput'
+                type='text'
+                name='cpf'
+                id='cpf'
+                value={cpf}
+                onChange={(event) => this.handleInput(event, 'cpf')}
+              />
+              <label htmlFor='email'>E-mail</label>
+              <input className='signupInput'
+                type='text'
+                name='email'
+                id='email'
+                value={email}
+                onChange={(event) => this.handleInput(event, 'email')}
+              />
+              <label htmlFor='password'>Senha</label>
+              <input className='signupInput'
+                type='password'
+                name='password'
+                id='password'
+                value={password}
+                onChange={(event) => this.handleInput(event, 'password')}
+              />
+              <label htmlFor='whatsapp'>WhatsApp</label>
+              <input className='signupInput'
+                type='text'
+                name='whatsapp'
+                id='whatsapp'
+                value={whatsapp}
+                onChange={(event) => this.handleInput(event, 'whatsapp')}
+              />
+            <label htmlFor='facebook'>Facebook</label>
+            <div className='socialMidia'>
+              <FiFacebook size='25' className='stepProgressIcon' />
+              <input className='signupInput social'
+                type='text'
+                name='facebook'
+                value={facebook}
+                onChange={(event) => this.handleInput(event, 'facebook')}
+              />
+            </div>
+            <label htmlFor='instagram'>Instagram</label>
+            <div className='socialMidia'>
+              <FiInstagram size='25' className='stepProgressIcon' />
+              <input className='signupInput social'
+                type='text'
+                name='instagram'
+                value={instagram}
+                onChange={(event) => this.handleInput(event, 'instagram')}
+              />
+            </div>
+              <h2 className='titleData'>Dados de Endereço</h2>
+              <label htmlFor='cep'>CEP</label>
+              <input className='signupInput'
+                type='text'
+                name='cep'
+                id='cep'
+                value={cep}
+                onChange={(event) => this.handleInput(event, 'cep')}
+              />
+              <label htmlFor='city'>Cidade</label>
+              <input className='signupInput'
+                type='text'
+                name='city'
+                id='city'
+                value={city}
+                onChange={(event) => this.handleInput(event, 'city')}
+              />
+              <label htmlFor='uf'>Estado</label>
+              <input className='signupInput'
+                type='text'
+                name='uf'
+                id='uf'
+                value={uf}
+                onChange={(event) => this.handleInput(event, 'uf')}
+              />
+              <button className='signupButton' onClick={(event) => this.handleUsersSubmit(event)} type='submit'>Cadastrar Usuário</button>
+              <button className='workingUserButton' type='button' onClick={(event) => this.handleUsersSubmit(event, true)}>Cadastrar um Serviço</button>
+            </form>
+          </>
+        }
+        {workingUser &&
+          <form className='signUp'>
+            <h2 className='titleData'>Dados Profissionais</h2>
+            <label htmlFor='category'>Categoria</label>
+            <select className='perfilInputSelect'
+              name='category'
+              id='category'
+              value={category.value}
+              onChange={(event) => this.handleInput(event, 'category')}>
+              {options.map(item => {
+                return <option value={item.value}>{item.label}</option>
+              })}
+            </select>
+            <label htmlFor='workName'>Profissão</label>
             <input className='signupInput'
               type='text'
-              name='firstName'
-              id='firstName'
-              {...register('firstName')}>
-            </input>
-            <p className='error'>{errors.firstName?.message}</p>
-            <label htmlFor='lastName'>Sobrenome</label>
+              name='workName'
+              id='workName'
+              value={workName}
+              onChange={(event) => this.handleInput(event, 'workName')}
+            />
+            <label htmlFor='description'>Descrição</label>
             <input className='signupInput'
               type='text'
-              name='lastName'
-              id='lastName'
-              {...register('lastName')}>
-            </input>
-            <p className='error'>{errors.lastName?.message}</p>
-            <label htmlFor='cpf'>CPF</label>
-            <input className='signupInput'
-              type='text'
-              name='cpf'
-              id='cpf'
-              {...register('cpf')}>
-            </input>
-            <p className='error'>{errors.cpf?.message}</p>
-            <label htmlFor='email'>E-mail</label>
-            <input className='signupInput'
-              type='text'
-              name='email'
-              id='email'
-              {...register('email')}>
-            </input>
-            <p className='error'>{errors.email?.message}</p>
-            <label htmlFor='password'>Senha</label>
-            <input className='signupInput'
-              type='password'
-              name='password'
-              id='password'
-              {...register('password')}>
-            </input>
-            <p className='error'>{errors.password?.message}</p>
-            <h2 className='titleData'>Dados de Endereço</h2>
-            <label htmlFor='cep'>CEP</label>
-            <input className='signupInput'
-              type='text'
-              name='cep'
-              id='cep'
-              {...register('cep')}>
-            </input>
-            <p className='error'>{errors.cep?.message}</p>
-            <label htmlFor='city'>Cidade</label>
-            <input className='signupInput'
-              type='text'
-              name='city'
-              id='city'
-              {...register('city')}>
-            </input>
-            <p className='error'>{errors.city?.message}</p>
-            <label htmlFor='uf'>Estado</label>
-            <input className='signupInput'
-              type='text'
-              name='uf'
-              id='uf'
-              {...register('uf')}>
-            </input>
-            <p className='error'>{errors.uf?.message}</p>
-            <button className='signupButton' type='submit'>Cadastrar Usuário</button>
-            <button className='workingUserButton' type='button' onClick={() => handleWorkingUser()}>Cadastrar um Serviço</button>
+              name='description'
+              id='description'
+              value={description}
+              onChange={(event) => this.handleInput(event, 'description')}
+            />
+            <label>Adicione uma foto para seu perfil</label>
+            <input className='plusFile'
+              type='file'
+              name='profile'
+              accept='.png'
+              value={profile}
+              onChange={(event) => this.handleInput(event, 'profile')}
+            />
+            <label>Apresente Seus Trabalhos</label>
+            <input className='plusFile'
+              type='file'
+              name='workingPic'
+              accept='.png'
+              multiple
+              value={workingPic}
+              onChange={(event) => this.handleInput(event, 'workingPic')}
+            />
+            <button className='signupButton' type='submit' onClick={event => this.handleWorkssSubmit(event)}>Finalizar</button>
           </form>
-        </>
-      }
-      {workingUser &&
-        <form onSubmit={handleSubmit(addPostWorks)} className='signUp' action='/users' method='POST'>
-          <h2 className='titleData'>Dados Profissionais</h2>
-          <label htmlFor='category'>Categoria</label>
-          <Select className='perfilInputSelect'
-            name='category'
-            id='category'
-            options={options}
-            {...register('category')}>
-          </Select>
-          <p className='error'>{errors.category?.message}</p>
-          <label htmlFor='workName'>Profissão</label>
-          <input className='signupInput'
-            type='text'
-            name='workName'
-            id='workName'
-            {...register('workName')}>
-          </input>
-          <p className='error'>{errors.workName?.message}</p>
-          <label htmlFor='description'>Descrição</label>
-          <input className='signupInput'
-            type='text'
-            name='description'
-            id='description'
-            {...register('description')}>
-          </input>
-          <p className='error'>{errors.description?.message}</p>
-          <label htmlFor='status'>Status</label>
-          <div className='radioContainer'>
-            <div className='radioStatus'>
-              <input className='signupInput statusInputRadio'
-                type='radio'
-                name='status'
-                id='status'
-                checked
-                {...register('status')}>
-              </input>
-              <label htmlFor='status'>Disponível</label>
-            </div>
-            <div className='radioStatus'>
-              <input className='signupInput statusInputRadio'
-                type='radio'
-                name='status'
-                id='status'
-                {...register('status')}>
-              </input>
-              <label htmlFor='status'>Indisponível</label>
-              <p className='error'>{errors.status?.message}</p>
-            </div>
+        }
+        {sucessStep &&
+          <div className='signUp'>
+            <h3>Cadastro realizado com Sucesso!</h3>
+            <FiStar size='25' className='stepProgressIcon' />
           </div>
-          <label htmlFor='whatsapp'>WhatsApp Comercial</label>
-          <input className='signupInput'
-            type='text'
-            name='whatsapp'
-            id='whatsapp'
-            {...register('whatsapp')}>
-          </input>
-          <p className='error'>{errors.whatsapp?.message}</p>
-          <label>Adicione uma foto para seu perfil</label>
-          <input className='plusFile'
-            type='file'
-            name='profile'
-            accept='.png'
-            {...register('profile')}>
-          </input>
-          <p className='error'>{errors.profile?.message}</p>
-          <label>Apresente Seus Trabalhos</label>
-          <input className='plusFile'
-            type='file'
-            name='workingPic'
-            accept='.png'
-            multiple
-            {...register('workingPic')}>
-          </input>
-          <p className='error'>{errors.workingPic?.message}</p>
-          <div className='socialMidia'>
-            <FiFacebook size='25' className='stepProgressIcon' />
-            <input className='signupInput social'
-              type='text'
-              name='facebook'
-              {...register('facebook')}>
-            </input>
-            <p className='error'>{errors.facebook?.message}</p>
-          </div>
-          <div className='socialMidia'>
-            <FiInstagram size='25' className='stepProgressIcon' />
-            <input className='signupInput social'
-              type='text'
-              name='instagram'
-              {...register('instagram')}>
-            </input>
-            <p className='error'>{errors.instagram?.message}</p>
-          </div>
-          <div className='socialMidia'>
-            <FiLinkedin size='25' className='stepProgressIcon' />
-            <input className='signupInput social'
-              type='text'
-              name='linkedin'
-              {...register('linkedin')}>
-            </input>
-            <p className='error'>{errors.linkedin?.message}</p>
-          </div>
-          <button className='signupButton'
-            type='submit'
-          >Finalizar</button>
-        </form>
-      }
-      {sucessStep &&
-        <div className='signUp'>
-          <h3>Cadastro realizado com Sucesso!</h3>
-          <FiStar size='25' className='stepProgressIcon' />
-        </div>
-      }
-      {/* <div className='signUpFooter'>
-        <p className='signupInfo'>Termos de uso</p>
-        <p className='signupInfo'>Política de Privacidade</p>
-        <p className='signupInfo'>Ajuda</p>
-      </div> */}
-    </div>
-  )
+        }
+      </div>
+    )
+  }
 }
+export default SignUp

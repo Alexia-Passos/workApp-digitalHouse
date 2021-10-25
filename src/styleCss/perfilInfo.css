@@ -1,15 +1,37 @@
+.perfilUserInfo{
+  width: 70%;
+  height: auto;
+  color: #2d2d2d;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  align-items: center;
+  align-content: center;
+  box-shadow: 0px 0px 2px 2px rgb(240, 234, 234);
+  position: absolute;
+  margin: 5% 15% 5% 15%;;
+}
+@media (max-width: 600px) {
+  .perfilUserInfo{
+    width: 100%;
+    margin: 0px;
+  }
+  .editPerfilButton{
+    width: 70%;
+  }
+  .deletePerfilButton{
+    width: 70%;
+  }
+}
+
 .perfilInfo{
     width: 70%;
-    height: auto;
+    height: 25px;
     color: #2d2d2d;
     display: flex;
     flex-direction: column;
-    border-radius: 8px;
     align-items: center;
     align-content: center;
-    box-shadow: 0px 0px 2px 2px rgb(240, 234, 234);
-    position: absolute;
-    margin: 5% 15% 5% 15%;;
   }
   .editPerfilButton{
     width: 40%;

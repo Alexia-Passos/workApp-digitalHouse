@@ -1,129 +1,399 @@
-import React, { useState, useEffect} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import '../../styleCss/perfilInfo.css'
+import Menubar from '../HomeComponents/MenuBar'
 import user from '../../img/user.jpeg'
-// import {FiFacebook , FiInstagram , FiLinkedin} from 'react-icons/fi'
-import { useParams } from 'react-router'
+import { FiFacebook, FiInstagram } from 'react-icons/fi'
+import history from '../../History';
 
-const dados = [
-  {
-      photoLink: "https://images.everydayhealth.com/images/cs-prevent-as-back-pain-working-from-home-1440x810.jpg?w=1110",
-      fullName: "Abreu Da Silva",
-      profession: "Professor - inglês",
-      rating: 67,
-      phoneNumber: 11999999999,
-      category: "Educação",
-      facebook: "https://www.facebook.com/campaign/landing.php?&campaign_id=1661784632&extra_1=s%7Cc%7C320269324047%7Ce%7Cfacebook%7C&placement=&creative=320269324047&keyword=facebook&partner_id=googlesem&extra_2=campaignid%3D1661784632%26adgroupid%3D63686352403%26matchtype%3De%26network%3Dg%26source%3Dnotmobile%26search_or_content%3Ds%26device%3Dc%26devicemodel%3D%26adposition%3D%26target%3D%26targetid%3Dkwd-541132862%26loc_physical_ms%3D1001727%26loc_interest_ms%3D%26feeditemid%3D%26param1%3D%26param2%3D&gclid=CjwKCAjwqeWKBhBFEiwABo_XBq6z7e_1aG-Gdkw2FReA0onDPGvpSnFM0L3fKdtLKOdtcEuh_H3iixoCAvMQAvD_BwE",
-      instagram: "https://www.instagram.com/",
-      linkedin: "https://twitter.com/twitterbrasil",
-      twitter: "https://br.linkedin.com/"
+class PerfilInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      cpf: null,
+      whatsapp: null,
+      instagram: '',
+      facebook: '',
+      profilefoto: '',
+      email: '',
+      password: '',
+      cep: null,
+      city: '',
+      uf: '',
+      categoryName: '',
+      categoryId: null,
+      workName: '',
+      category: '',
+      workName: '',
+      description: '',
+      status: true,
+      profile: '',
+      workingPic: '',
+      facebook: '',
+      instagram: '',
+      userId: null,
+      userPerfil: true,
+      editPerfil: false,
+      workingUser: false
+
+    }
   }
-]
+ 
+  componentDidMount() {
+    if (localStorage.getItem("userId")) {
+      this.getUserData(localStorage.getItem("userId"))
+    } else {
+      history.push('/')
+    }
+  }
 
-export default function PerfilInfo() {
-  const [users, setUsers] = useState([])
-  const [works, setworks] = useState([])
-  const [editUser, setEditUser] = useState([])
-  const id = useParams()
+  getUserData = (userId) => {
+    axios({
+      method: 'GET',
+      url: `https://workapp-be.herokuapp.com/users/id?id=${userId}`
+    })
+      .then(res => {
+        this.setState({
+          userId: res.data.userId,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          cpf: res.data.cpf,
+          whatsapp: res.data.whatsapp,
+          instagram: res.data.instagram,
+          facebook: res.data.facebook,
+          profilefoto: res.data.profilefoto,
+          email: res.data.email,
+          password: res.data.password,
+          cep: res.data.cep,
+          city: res.data.city,
+          uf: res.data.uf
+        }, this.getWorkData(userId))
+      })
+  }
 
-  useEffect(() => {
-    axios.get(`http://localhost:3000/users${id}`)
-    // axios.get(`https://workapp-be.herokuapp.com/users${id}`)
-    .then(res => {
-      console.log(res)
-      setUsers(res.data)
-    }).catch(err => {
-      console.log(err)
-    })  
-  },[])
-  
-  useEffect(() => {
-    axios.get(`http://localhost:3000/works/${id}`)
-    // axios.get(`https://workapp-be.herokuapp.com//works/${id}`)
-    .then(res => {
-      console.log(res)
-      setworks(res.data)
-    }).catch(err => {
-      console.log(err)
-    })  
-  },[])
+  getWorkData = (userId) => {
+    axios({
+      method: 'GET',
+      url: `https://workapp-be.herokuapp.com/works/id?id=${userId}`
+    })
+      .then(res => {
+        this.setState({
+          userId: res.data.userId,
+          workName: res.data.workName,
+          category: res.data.category,
+          description: res.data.description,
+          profile: res.data.profile,
+        })
+      })
+  }
 
-  function deleteUser(){
-    axios.delete(`http://localhost:3000/users${id}`)
-    // axios.delete(`https://workapp-be.herokuapp.com//users${id}`)
+  handleInput = (event, field) => {
+    this.setState({ [field]: event.target.value })
+    setTimeout(() => {
+      console.log(this.state[field]);
+    }, 500);
+  }
+
+  handleUsersSubmit = async (event, isWorkForm) => {
+
+    event.preventDefault();
+    const usersState =
+    {
+      "userId": this.state.userId,
+      "firstName": this.state.firstName,
+      "lastName": this.state.lastName,
+      "cpf": this.state.cpf,
+      "whatsapp": this.state.whatsapp,
+      "instagram": this.state.instagram,
+      "facebook": this.state.facebook,
+      "profilefoto": this.state.profilefoto,
+      "email": this.state.email,
+      "password": this.state.password,
+      "cep": this.state.cep,
+      "city": this.state.city,
+      "uf": this.state.uf,
+    }
+
+    await axios({
+      method: 'PUT',
+      url: `https://workapp-be.herokuapp.com/users/change/id?id=${this.state.userId}`,
+      data: usersState,
+    })
       .then(res => {
         console.log(res)
-        setworks(res.data)
-      }).catch(err => {
-        console.log(err)
-      })  
+        return (
+          this.setState({
+            userId: res.data.id,
+            signupStep: false,
+            sucessStep: isWorkForm ? false : true,
+            workingUser: isWorkForm ? true : false
+          })
+        )
+      })
+      .catch(error => console.log('error', error));
   }
 
-  function editUserTrigger(id){
-    setEditUser(true)
+  handleWorkssSubmit = async (event) => {
+
+    event.preventDefault();
+    const worksState =
+    {
+      "userId": this.state.userId,
+      "workName": this.state.workName,
+      "category": this.state.category,
+      "description": this.state.description,
+      "profile": this.state.profile,
+    }
+
+    await axios({
+      method: 'PUT',
+      url: `https://workapp-be.herokuapp.com/works/change/id?id=${this.state.userId}`,
+      data: worksState,
+    })
+      .then(res => {
+        console.log(res)
+        return (
+          this.setState({
+            workingUser: false,
+            sucessStep: true,
+          })
+        )
+      })
+      .catch(error => console.log('error', error));
   }
-  console.log(users, works, editUser)
-  return (
-    <div className='perfilInfo'>  
-      <h2>Dados Pessoais</h2>
-      <img  className='perfiInfoProfile' alt='profile' src={ user }/>
-      {/* <p className='perfilInfo'><b>Nome:</b>{user.firstName + '  ' + user.lastName}</p>
-      <p className='perfilInfo'><b>CPF:</b>{user.cpf}</p>
-      <p className='perfilInfo'><b>Email:</b>{user.email}</p>
-      <h2>Dados de Endereço</h2>
-      <p className='perfilInfo'><b>CEP:</b>{user.address.cep}</p>
-      <p className='perfilInfo'><b>Cidade:</b>{user.address.city}</p>
-      <p className='perfilInfo'><b>Estado:</b>{user.address.uf}</p>
-      <h2>Dados de Endereço</h2>
-      <p className='perfilInfo'><b>Categoria:</b>{work.category.categoryName}</p>
-      <p className='perfilInfo'><b>Profissão:</b>{work.workName}</p>
-      <p className='perfilInfo'><b>Descrição:</b>{work.description}</p>
-      <p className='perfilInfo'><b>Status:</b>{work.status}</p>
-      <p className='perfilInfo'><b>Whatsapp profissional:</b>{work.whatsapp}</p>
-      <p className='perfilInfo'><b>Curtidas:</b>{work.like.likeAccount}  Pessoas curtiram seu trabalho</p>
-      <p className='perfilInfo'><FiFacebook/>{'  ' + work.user.facebook}</p>
-      <p className='perfilInfo'><FiInstagram/>{'  ' + work.user.instagram}</p>
-      <p className='perfilInfo'><FiLinkedin/> {'  NÃOESQUECE'}</p> */}
-      <div className='perfilInfoContent'>
-        <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
-        <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
-        <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
-        <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
-        <img  alt='perfilInfoPic' className='imgPerfilInfo' src={dados[0].photoLink}></img>
-      </div> 
-      <button className='editPerfilButton' type='button' onClick={ () => editUserTrigger(id)}>Editar Usuário</button>
-      <button className='deletePerfilButton' type='button' onClick={ () => deleteUser(id)}>Deletar Usuário</button> 
-    </div> 
-  )
+
+  editUserData = event => {
+    this.setState({
+      userPerfil: false,
+      editPerfil: true
+    })
+  }
+
+  editWorkData = event => {
+    this.setState({
+      userPerfil: false,
+      workingUser: true
+    })
+  }
+
+  deleteData = (event, userId) => {
+    event.preventDefault();
+
+    axios({
+      method: 'DELETE',
+      url: `https://workapp-be.herokuapp.com/users/delete/id?id=${userId}`,
+    })
+      .then(res => {
+        axios({
+          method: 'DELETE',
+          url: `https://workapp-be.herokuapp.com/works/delete/id?id=${userId}`,
+        })
+          .then(res2 => {
+            localStorage.removeItem('userId')
+            window.location.href = '/'
+          })
+      })
+  }
+
+  render() {
+    const { firstName, lastName, cpf, whatsapp, instagram, facebook, email, password, cep, city, uf,
+      category, workName, description, profile, userPerfil, editPerfil, workingUser, workingPic } = this.state
+
+    const options = [
+      { value: "1", label: 'Assistência' },
+      { value: "2", label: 'Administrativos' },
+      { value: "3", label: 'Artesanais' },
+      { value: "4", label: 'Consultoria' },
+      { value: "5", label: 'Domésticos' },
+      { value: "6", label: 'Educação' },
+      { value: "7", label: 'Estética' },
+      { value: "8", label: 'Manutenção' },
+      { value: "9", label: 'Saúde' },
+      { value: "10", label: 'Tecnologia' }
+    ]
+
+    return (
+      <>
+        <Menubar />
+        {userPerfil &&
+          <div className='perfilUserInfo'>
+            <h2>Dados Pessoais</h2>
+            <img className='perfiInfoProfile' alt='profile' src={user}></img>
+            <p className='perfilInfo'>Nome: {firstName + '  ' + lastName}</p>
+            <p className='perfilInfo'>CPF:{cpf}</p>
+            <p className='perfilInfo'>Email:{email}</p>
+            <h2>Dados de Endereço</h2>
+            <p className='perfilInfo'>CEP:{cep}</p>
+            <p className='perfilInfo'>Cidade:{city}</p>
+            <p className='perfilInfo'>Estado:{uf}</p>
+            <h2>Dados profissionais</h2>
+            <p className='perfilInfo'>Categoria:{category.value}</p>
+            <p className='perfilInfo'>Profissão:{workName}</p>
+            <p className='perfilInfo'>Descrição:{description}</p>
+            <p className='perfilInfo'>Whatsapp:{whatsapp}</p>
+            <p className='perfilInfo'> Facebook: {'  ' + facebook}</p>
+            <p className='perfilInfo'>Instagram: {'  ' + instagram}</p> 
+            <button className='editPerfilButton' type='button' onClick={event => this.editUserData(event)}>Editar dados pessoais</button>
+            <button className='editPerfilButton' type='button' onClick={event => this.editWorkData(event)}>Editar dados profissionais</button>
+            <button className='deletePerfilButton' type='button' onClick={event => this.deleteData(event, this.state.userId)}>Deletar Usuário</button>
+          </div>
+        }
+        {editPerfil &&
+          <>
+            <form className='signUp'>
+              <h2 className='titleData'>Dados Pessoais</h2>
+              <label htmlFor='firstName'>Nome</label>
+              <input className='signupInput'
+                type='text'
+                name='firstName'
+                id='firstName'
+                value={firstName}
+                onChange={(event) => this.handleInput(event, 'firstName')}
+              />
+              <label htmlFor='lastName'>Sobrenome</label>
+              <input className='signupInput'
+                type='text'
+                name='lastName'
+                id='lastName'
+                value={lastName}
+                onChange={(event) => this.handleInput(event, 'lastName')}
+              />
+              <label htmlFor='cpf'>CPF</label>
+              <input className='signupInput'
+                type='text'
+                name='cpf'
+                id='cpf'
+                value={cpf}
+                onChange={(event) => this.handleInput(event, 'cpf')}
+              />
+              <label htmlFor='email'>E-mail</label>
+              <input className='signupInput'
+                type='text'
+                name='email'
+                id='email'
+                value={email}
+                onChange={(event) => this.handleInput(event, 'email')}
+              />
+              <label htmlFor='password'>Senha</label>
+              <input className='signupInput'
+                type='password'
+                name='password'
+                id='password'
+                value={password}
+                onChange={(event) => this.handleInput(event, 'password')}
+              />
+              <label htmlFor='whatsapp'>WhatsApp</label>
+              <input className='signupInput'
+                type='text'
+                name='whatsapp'
+                id='whatsapp'
+                value={whatsapp}
+                onChange={(event) => this.handleInput(event, 'whatsapp')}
+              />
+              <label htmlFor='facebook'>Facebook</label>
+              <div className='socialMidia'>
+                <FiFacebook size='25' className='stepProgressIcon' />
+                <input className='signupInput social'
+                  type='text'
+                  name='facebook'
+                  value={facebook}
+                  onChange={(event) => this.handleInput(event, 'facebook')}
+                />
+              </div>
+              <label htmlFor='instagram'>Instagram</label>
+              <div className='socialMidia'>
+                <FiInstagram size='25' className='stepProgressIcon' />
+                <input className='signupInput social'
+                  type='text'
+                  name='instagram'
+                  value={instagram}
+                  onChange={(event) => this.handleInput(event, 'instagram')}
+                />
+              </div>
+              <h2 className='titleData'>Dados de Endereço</h2>
+              <label htmlFor='cep'>CEP</label>
+              <input className='signupInput'
+                type='text'
+                name='cep'
+                id='cep'
+                value={cep}
+                onChange={(event) => this.handleInput(event, 'cep')}
+              />
+              <label htmlFor='city'>Cidade</label>
+              <input className='signupInput'
+                type='text'
+                name='city'
+                id='city'
+                value={city}
+                onChange={(event) => this.handleInput(event, 'city')}
+              />
+              <label htmlFor='uf'>Estado</label>
+              <input className='signupInput'
+                type='text'
+                name='uf'
+                id='uf'
+                value={uf}
+                onChange={(event) => this.handleInput(event, 'uf')}
+              />
+              <button className='signupButton' onClick={(event) => this.handleUsersSubmit(event)} type='submit'>Cadastrar Usuário</button>
+              <button className='workingUserButton' type='button' onClick={(event) => this.handleUsersSubmit(event, true)}>Cadastrar um Serviço</button>
+            </form>
+          </>
+        }
+        {workingUser &&
+          <form className='signUp'>
+            <h2 className='titleData'>Dados Profissionais</h2>
+            <label htmlFor='category'>Categoria</label>
+            <select className='perfilInputSelect'
+              name='category'
+              id='category'
+              value={category.value}
+              onChange={(event) => this.handleInput(event, 'category')}>
+              {options.map(item => {
+                return <option key= {item.value} value={item.value}>{item.label}</option>
+              })}
+            </select>
+            <label htmlFor='workName'>Profissão</label>
+            <input className='signupInput'
+              type='text'
+              name='workName'
+              id='workName'
+              value={workName}
+              onChange={(event) => this.handleInput(event, 'workName')}
+            />
+            <label htmlFor='description'>Descrição</label>
+            <input className='signupInput'
+              type='text'
+              name='description'
+              id='description'
+              value={description}
+              onChange={(event) => this.handleInput(event, 'description')}
+            />
+            <label>Adicione uma foto para seu perfil</label>
+            <input className='plusFile'
+              type='file'
+              name='profile'
+              accept='.png'
+              value={profile}
+              onChange={(event) => this.handleInput(event, 'profile')}
+            />
+            <label>Apresente Seus Trabalhos</label>
+            <input className='plusFile'
+              type='file'
+              name='workingPic'
+              accept='.png'
+              multiple
+              value={workingPic}
+              onChange={(event) => this.handleInput(event, 'workingPic')}
+            />
+            <button className='signupButton' type='submit' onClick={event => this.handleWorkssSubmit(event)}>Finalizar</button>
+          </form>
+        }
+      </>
+    )
+  }
 }
 
-{/* <div className='perfilInfo'>  
-      <h2>Dados Pessoais</h2>
-      <img className='perfiInfoProfile' alt='profile'></img>
-      <p className='perfilInfo'><b>Nome:</b>{user.firstName + '  ' + user.lastName}</p>
-      <p className='perfilInfo'><b>CPF:</b>{user.cpf}</p>
-      <p className='perfilInfo'><b>Email:</b>{user.email}</p>
-      <h2>Dados de Endereço</h2>
-      <p className='perfilInfo'><b>CEP:</b>{user.address.cep}</p>
-      <p className='perfilInfo'><b>Cidade:</b>{user.address.city}</p>
-      <p className='perfilInfo'><b>Estado:</b>{user.address.uf}</p>
-      <h2>Dados de Endereço</h2>
-      <p className='perfilInfo'><b>Categoria:</b>{work.category.categoryName}</p>
-      <p className='perfilInfo'><b>Profissão:</b>{work.workName}</p>
-      <p className='perfilInfo'><b>Descrição:</b>{work.description}</p>
-      <p className='perfilInfo'><b>Status:</b>{work.status}</p>
-      <p className='perfilInfo'><b>Whatsapp profissional:</b>{work.whatsapp}</p>
-      <p className='perfilInfo'><b>Curtidas:</b>{work.like.likeAccount}  Pessoas curtiram seu trabalho</p>
-      <p className='perfilInfo'><FiFacebook/>{'  ' + work.user.facebook}</p>
-      <p className='perfilInfo'><FiInstagram/>{'  ' + work.user.instagram}</p>
-      <p className='perfilInfo'><FiLinkedin/> {'  NÃOESQUECE'}</p>
-      <div className='perfilInfoContent'>
-        <img  alt='perfilInfoPic' className='imgperfilInfo' src={dados[0].photoLink}></img>
-        <img  alt='perfilInfoPic' className='imgperfilInfo' src={dados[0].photoLink}></img>
-        <img  alt='perfilInfoPic' className='imgperfilInfo' src={dados[0].photoLink}></img>
-        <img  alt='perfilInfoPic' className='imgperfilInfo' src={dados[0].photoLink}></img>
-        <img  alt='perfilInfoPic' className='imgperfilInfo' src={dados[0].photoLink}></img>
-      </div> 
-      <button className='editPerfilButton' type='button'>Editar Usuário</button>
-      <button className='deletePerfilButton' type='button'>Deletar Usuário</button> 
-    </div>  */}
+export default PerfilInfo;

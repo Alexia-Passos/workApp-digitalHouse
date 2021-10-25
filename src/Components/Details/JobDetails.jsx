@@ -40,7 +40,7 @@ export default function Home() {
       console.log(err)
     })  
   },[])
-
+  console.log(works, 'teste')
   return (
     <>
       <HomeHeader/>
@@ -54,13 +54,8 @@ export default function Home() {
               <Link className='avaliation'>Entre em contato</Link>
                 <p className='detailInfo'><FiFacebook/>{'  ' + users.facebook}</p>
                 <p className='detailInfo'><FiInstagram/>{'  ' + users.instagram}</p>
-                <p className='detailInfo'><FiLinkedin/> {'  ---'}</p>
             </div>
           <div className='detailContent'>
-            <img  alt='jobPic' className='imgJob' src={dados[0].photoLink}></img>
-            <img  alt='jobPic' className='imgJob' src={dados[0].photoLink}></img>
-            <img  alt='jobPic' className='imgJob' src={dados[0].photoLink}></img>
-            <img  alt='jobPic' className='imgJob' src={dados[0].photoLink}></img>
             <img  alt='jobPic' className='imgJob' src={dados[0].photoLink}></img>
           </div> 
         </div> 
