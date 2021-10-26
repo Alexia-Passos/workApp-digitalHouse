@@ -13,7 +13,6 @@ const device = (/Mobi/.test(navigator.userAgent))
 export default function Home() {
   //state
   const [works, setWorks] = useState([])
-  const [mobileDevice, setMobileDevice] = useState(false)
 
   //GET users
   useEffect(() => {

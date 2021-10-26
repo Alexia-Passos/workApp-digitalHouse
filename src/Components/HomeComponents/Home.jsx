@@ -30,7 +30,6 @@ export default function Home() {
       console.log(err)
     })  
   },[])
-  console.log(works)
   
   const isMobile = device === true ? 1 : 3
   return (
@@ -57,7 +56,6 @@ export default function Home() {
           <img className='carouselImg' alt='carousel' src={tech} />
           <img className='carouselImg' alt='carousel' src={psycho} />
         </Carousel>
-        {console.log(device)}
       </div>
       <Footer/>
     </>

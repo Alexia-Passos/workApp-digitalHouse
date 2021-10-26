@@ -1,7 +1,5 @@
 //react
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
+import React, { useEffect , useState } from 'react'
 //comp
 import Card from '../HomeComponents/Card'
 import '../../styleCss/home.css'
@@ -11,31 +9,37 @@ import MenuBar from '../HomeComponents/MenuBar'
 //dep
 import axios from 'axios'
 
-export default function Category() {
+function Category(props) {
+  const categoryProps = props.categoryPropsId
+
+  //state
   const [works, setWorks] = useState([])
-  const id = useParams()
 
+  //GET users
   useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/works${id}`)
-    .then(res => {
-      console.log(res)
-      setWorks(res.data)
-    }).catch(err => {
-      console.log(err)
-    })  
-  },[])
-
-  console.log(works)
-
+    axios.get(`https://workapp-be.herokuapp.com/works`)
+      .then(res => {
+        console.log(res)
+        setWorks(res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+  }, [])
   return (
     <>
-      <HomeHeader/>
-      <MenuBar/>
+      <HomeHeader />
+      <MenuBar />
       <h1>Encontre um Serviço</h1>
       <div className='cardCategory'>
-          <Card/>
+        {/* {works.forEach(el => {
+          if (el.category.id == categoryProps) {
+            return <Card />
+          }
+        })} */}
+        <Card/>
       </div>
-      <Footer/>
+      <Footer />
     </>
   )
 }
+export default Category

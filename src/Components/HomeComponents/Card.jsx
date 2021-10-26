@@ -1,97 +1,104 @@
 //react
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 //comp
 import '../../styleCss/card.css'
 //dep
 import axios from 'axios'
-import { FiThumbsUp } from 'react-icons/fi'
-import Carousel , { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-const dados = [
-  {
-    photoLink: "https://www.aihr.com/wp-content/uploads/working-from-home-background-and-featured-image.png",
-  }
-]
+const dados = [{photoLink: "https://www.aihr.com/wp-content/uploads/working-from-home-background-and-featured-image.png"}]
 
 const device = (/Mobi/.test(navigator.userAgent))
 
-export default function Card() {
-  const [works, setWorks] = useState([])
+class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      categoryName: '',
+      categoryId: null,
+      category: '',
+      workName: '',
+      profile: '',
+      userId: null,
 
-  useEffect(() => {
-    axios.get(`https://workapp-be.herokuapp.com/works/`)
+    }
+  }
+
+  getWorkData = () => {
+    axios({
+      method: 'GET',
+      url: `https://workapp-be.herokuapp.com/works`
+    })
       .then(res => {
-        console.log(res)
-        setWorks(res.data)
-      }).catch(err => {
-        console.log(err)
+        this.setState({
+          userId: res.data.userId,
+          workName: res.data.workName,
+          categoryName: res.data.categoryName,
+          profile: res.data.profile,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+        })
       })
-  }, [])
+  }
 
-  const isMobile = device === true ? 1 : 3
-  return (
-    <div className='cardsContainer'>
-      <Carousel
+  render() {
+    const { firstName, lastName, category, workName } = this.state
+
+    const isMobile = device === true ? 1 : 3
+    return (
+      <div className='cardsContainer'>
+        <Carousel
           plugins={[
             'infinite',
             'arrows',
             {
               resolve: slidesToShowPlugin,
               options: {
-              numberOfSlides: isMobile
+                numberOfSlides: isMobile
               }
             },
           ]}
         >
-          <Link to='/detalhes' className='cardsContent' >
-          <h6 className='category'>teste</h6>
-          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
-          <div className='nest'>
-            <div>nome</div>
-            <div>2 <FiThumbsUp size='15' /></div>
-          </div>
-        </Link>
-
-        <Link to='/detalhes' className='cardsContent' >
-          <h6 className='category'>teste</h6>
-          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
-          <div className='nest'>
-            <div>nome</div>
-            <div>2 <FiThumbsUp size='15' /></div>
-          </div>
-        </Link>
-
-        <Link to='/detalhes' className='cardsContent' >
-          <h6 className='category'>teste</h6>
-          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
-          <div className='nest'>
-            <div>nome</div>
-            <div>2 <FiThumbsUp size='15' /></div>
-          </div>
-        </Link>
-
-        <Link to='/detalhes' className='cardsContent' >
-          <h6 className='category'>teste</h6>
-          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
-          <div className='nest'>
-            <div>nome</div>
-            <div>2 <FiThumbsUp size='15' /></div>
-          </div>
-        </Link>
-
-        <Link to='/detalhes' className='cardsContent' >
-          <h6 className='category'>teste</h6>
-          <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
-          <div className='nest'>
-            <div>nome</div>
-            <div>2 <FiThumbsUp size='15' /></div>
-          </div>
-        </Link>
+           <Link to='/detalhes' className='cardsContent' >
+             <h6 className='category'>{category}</h6>
+             <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+             <div className='nest'>
+               <div>{firstName + " " + lastName}</div>
+               <div>{workName}</div>
+             </div>
+           </Link>
+           <Link to='/detalhes' className='cardsContent' >
+             <h6 className='category'>{category}</h6>
+             <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+             <div className='nest'>
+               <div>{firstName + " " + lastName}</div>
+               <div>{workName}</div>
+             </div>
+           </Link>
+           <Link to='/detalhes' className='cardsContent' >
+             <h6 className='category'>{category}</h6>
+             <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+             <div className='nest'>
+               <div>{firstName + " " + lastName}</div>
+               <div>{workName}</div>
+             </div>
+           </Link>
+           <Link to='/detalhes' className='cardsContent' >
+             <h6 className='category'>{category}</h6>
+             <img alt='jobPic' className='imgCard' src={dados[0].photoLink}></img>
+             <div className='nest'>
+               <div>{firstName + " " + lastName}</div>
+               <div>{workName}</div>
+             </div>
+           </Link>
+           
         </Carousel>
-        
-
-    </div>
-  )
+      </div>
+    )
+  }
 }
+export default Card

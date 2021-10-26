@@ -1,9 +1,8 @@
 
 import React, { Component } from 'react'
-import Select from 'react-select'
 import '../../styleCss/signup.css'
 import Menubar from '../HomeComponents/MenuBar'
-import { FiFacebook, FiInstagram, FiLinkedin, FiStar } from 'react-icons/fi'
+import { FiFacebook, FiInstagram, FiStar } from 'react-icons/fi'
 import axios from 'axios'
 
 class SignUp extends Component {

@@ -28,34 +28,34 @@ function App() {
           <Route exact path='/privacidade' component = {Privacy} />
           <Route exact path='/detalhes' component = {JobDetails} />
           <Route exact path='/assistencia'>
-            <Category categoryType='assistencia'/>
+            <Category categoryType='assistencia' categoryPropsId={1}/>
           </Route>
           <Route exact path='/administrativos'>
-            <Category categoryType='administrativos'/>
+            <Category categoryType='administrativos' categoryPropsId={2}/>
           </Route>
           <Route exact path='/artesanais'>
-            <Category categoryType='artesanais'/>
+            <Category categoryType='artesanais' categoryPropsId={3}/>
           </Route>
           <Route exact path='/consultoria'>
-            <Category categoryType='consultoria'/>
+            <Category categoryType='consultoria' categoryPropsId={4}/>
           </Route>
           <Route exact path='/domesticos'>
-            <Category categoryType='domesticos'/>
+            <Category categoryType='domesticos' categoryPropsId={5}/>
           </Route>
           <Route exact path='/educacao'>
-            <Category categoryType='educacao'/>
+            <Category categoryType='educacao' categoryPropsId={6}/>
           </Route>
           <Route exact path='/estetica'>
-            <Category categoryType='estetica'/>
+            <Category categoryType='estetica' categoryPropsId={7}/>
           </Route>
           <Route exact path='/manutencao'>
-            <Category categoryType='manutencao'/>
+            <Category categoryType='manutencao' categoryPropsId={8}/>
           </Route>
           <Route exact path='/saude'>
-            <Category categoryType='saude'/>
+            <Category categoryType='saude' categoryPropsId={9}/>
           </Route>
           <Route exact path='/tecnologia'>
-            <Category categoryType='tecnologia'/>
+            <Category categoryType='tecnologia' categoryPropsId={10}/>
           </Route>
           <Route exact path='/perfil'>
             <PerfilInfo/>
